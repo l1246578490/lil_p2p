@@ -1,0 +1,13 @@
+server:
+  port: 8090
+
+spring:
+  #dev 开发环境，test测试环境，pro生产环境
+  profiles:
+    active: dev
+#  thymeleaf:
+#    cache: false
+#    content-type: text/html
+#    mode: LEGACYHTML5
+  application:
+    name: user-service #服务名

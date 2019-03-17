@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/p2p_api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/p2p_eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/p2p_pojo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/p2p_pojo/src/main/java/com/dj/p2p/pojo/bid/Bid.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/p2p_risk_manage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/p2p_user" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/p2p_zuul" charset="UTF-8" />
+  </component>
+</project>

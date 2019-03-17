@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace:用于隔离SQL全局唯一（采用接口和XML开发时为接口的全路径）
+ -->
+<mapper namespace="com.dj.p2p.mapper.BidMapper">
+    <sql id="BidVoSql">
+        db.id,
+        db.project_name,
+        dpu.real_name,
+        db.bid_money,
+        db.interest_rate,
+        db.capital_interest_money,
+        db.interest_money,
+        db.bid_term,
+        db.bid_state,
+    </sql>
+    <sql id="BidVoSqlByState">
+        db.id,
+        db.project_name,
+        dpu.real_name,
+        db.bid_money,
+        db.interest_rate,
+        db.capital_interest_money,
+        db.interest_money,
+        db.bid_term,
+        db.bid_state,
+        db.sale_time,
+        db.money_plan
+    </sql>
+    <sql id="BidVoUserVoAsset">
+            db.id,
+            db.interest_rate,
+            db.bid_term,
+            db.bid_money,
+            dpu.real_name,
+            db.repayment_type,
+            db.create_time,
+            db.bid_state,
+            dpu.age,
+            dpu.education,
+            dpu.sex,
+            dpu.marriage,
+            dpa.work_year,
+            dpa.house,
+            dpa.annual_income,
+            dpa.asset_valuation,
+            dpa.car_production,
+            db.explains,
+            db.manage_time,
+            db.manage_name
+    </sql>
+    <sql id="BidUserIntSql">
+            db.id,
+            db.project_name,
+            dpu.real_name,
+            db.bid_money,
+            db.interest_rate,
+            db.bid_term,
+            db.money_plan,
+            db.sale_time,
+            db.bid_state,
+            db.capital_interest_money,
+            db.interest_money,
+            db.money_plan,
+            COUNT(dbi.user_id) AS joinSum
+    </sql>
+    <select id="findBidAll"  resultType="com.dj.p2p.pojo.bid.BidVo">
+        SELECT
+        <include refid="BidVoSql"/>
+        FROM
+        p2p_bid db
+        LEFT JOIN p2p_user dpu ON db.user_id = dpu.id
+        <where>
+            db.bid_state &lt;= 4
+            <if test="level == 3">
+            AND  db.commissioner_id = #{id}
+            </if>
+        </where>
+</select>
+    <select id="getBidAndUserByBidId" resultType="com.dj.p2p.pojo.bid.BidAndUserVo">
+       SELECT
+        <include refid="BidVoUserVoAsset"/>
+        FROM
+            p2p_bid db
+        JOIN
+        p2p_user dpu ON db.user_id = dpu.id
+        JOIN
+        p2p_asset dpa ON db.user_id = dpa.user_id
+        WHERE
+            db.id = #{bidId}
+    </select>
+    <select id="findBidByState" resultType="com.dj.p2p.pojo.bid.BidVo">
+        SELECT
+        <include refid="BidVoSqlByState"/>
+        FROM
+        p2p_bid db
+        LEFT JOIN p2p_user dpu ON db.user_id = dpu.id
+        <where>
+            <if test="userId != null">
+                dpu.id = #{userId}
+            </if>
+            <if test="bidState != null">
+             AND db.bid_state &gt;= #{bidState}
+            </if>
+        </where>
+    </select>
+    <select id="findBidUserIntByQuery" resultType="com.dj.p2p.pojo.bid.BidVoUserVoInt">
+        SELECT
+            <include refid="BidUserIntSql"/>
+        FROM
+            p2p_bid db
+        LEFT JOIN p2p_user pu ON db.user_id = pu.id
+        LEFT JOIN p2p_bid_investment dbi ON db.id = dbi.bid_id
+        WHERE
+            db.bid_state = 5
+        GROUP BY
+            db.id
+    </select>
+    <select id="findBidVoUserVoIntByQuery" resultType="com.dj.p2p.pojo.bid.BidVoUserVoInt">
+        SELECT
+        <include refid="BidUserIntSql"/>
+        FROM
+        p2p_bid db
+        LEFT JOIN p2p_user dpu ON db.user_id = dpu.id
+        LEFT JOIN p2p_bid_investment dbi ON db.id = dbi.bid_id
+        <where>
+            <if test="userId != null">
+                dbi.user_id = #{userId}
+            </if>
+            <if test="bidState != null">
+                AND   db.bid_state &gt;= #{bidState}
+            </if>
+        </where>
+    </select>
+</mapper>

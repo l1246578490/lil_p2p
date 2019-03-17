@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="p2p_api" />
+        <module name="p2p_eureka" />
+        <module name="p2p_pojo" />
+        <module name="p2p_risk_manage" />
+        <module name="p2p_user" />
+        <module name="p2p_zuul" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dj_p2p" target="1.8" />
+      <module name="p2p_api" target="1.8" />
+      <module name="p2p_eureka" target="1.8" />
+      <module name="p2p_pojo" target="1.8" />
+      <module name="p2p_risk_manage" target="1.8" />
+      <module name="p2p_user" target="1.8" />
+      <module name="p2p_zuul" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
